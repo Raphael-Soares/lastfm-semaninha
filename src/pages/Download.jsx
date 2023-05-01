@@ -43,12 +43,34 @@ function Download() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "center",
             }}
         >
-            <p>
+            <p
+                style={{
+                    color: "#fff",
+                    fontSize: "24px",
+                    fontWeight: "700",
+                    margin: "0",
+                    padding: "10px",
+                    textAlign: "center",
+                    fontFamily: "Futura PT",
+                }}
+            >
                 Se o dowload não começou automaticamente,
-                <a onClick={handleDownload}>clique aqui</a>
+                <a
+                    onClick={handleDownload}
+                    style={{
+                        color: "#ff1b6d",
+                        fontSize: "24px",
+                        fontWeight: "700",
+                        margin: "0",
+                        padding: "10px",
+                        textAlign: "center",
+                        fontFamily: "Futura PT",
+                    }}
+                >
+                    clique aqui
+                </a>
             </p>
             {charts.length > 0 && (
                 <Canvas charts={charts} username={username} canvasRef={canvasRef} />
