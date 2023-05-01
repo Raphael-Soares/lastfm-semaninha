@@ -3,16 +3,28 @@ import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
+import Imagem from "../assets/semaninha.png";
+
 import { MdSearch } from "react-icons/md";
 
 const Main = styled.main`
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
     justify-content: center;
-    padding-top: 100px;
+    padding: 20px;
 
     width: 100%;
+    gap: 50px;
+
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+`;
+
+const ImagemExemplo = styled.img`
+    height: 80vh;
+    border-radius: 5px;
 `;
 
 const Button = styled.button`
@@ -56,24 +68,29 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.h2`
-    font-size: 24px;
+    font-size: 20px;
     font-family: "Lato", sans-serif;
-    color: #000;
+    color: #434141;
 `;
 
 function Home() {
     const [username, setUsername] = useState("");
 
     return (
-        <div>
-            <Main>
+        <Main>
+            <picture>
+                <ImagemExemplo src={Imagem} alt="Exemplo de Semaninha" />
+            </picture>
+
+            <div>
                 <Title>Gerador de Semaninha</Title>
-                <Subtitle>Gerador de imagem com os álbuns mais ouvidos da semana</Subtitle>
+                <Subtitle>Gera um story com os álbuns mais ouvidos da sua semana</Subtitle>
                 <div
                     style={{
                         display: "flex",
                         flexDirection: "row",
                         marginTop: "50px",
+                        paddingBottom: "10px",
                     }}
                 >
                     <Input
@@ -88,8 +105,9 @@ function Home() {
                         </Button>
                     </Link>
                 </div>
-            </Main>
-        </div>
+                <hr />
+            </div>
+        </Main>
     );
 }
 
