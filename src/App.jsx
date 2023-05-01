@@ -12,9 +12,10 @@ import Canvas from "./components/Canvas";
 
 function App() {
     const [charts, setCharts] = useState([]);
+
+    const [username, setUsername] = useState("");
     const canvasRef = useRef(null);
 
-    const username = "polyphiac";
     async function getCharts() {
         try {
             const response = await axios.get(
@@ -26,24 +27,21 @@ function App() {
         }
     }
 
-    useEffect(() => {
-        getCharts();
-    }, []);
-
     return (
         <main>
             <div>
                 <h1>Qual o seu username do lastfm?</h1>
-                <input type="text" />
-                <button>
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                <button onClick={getCharts}>
                     <span>Gerar semaninha</span>
                 </button>
             </div>
+
+            <button onClick={() => exportComponentAsPNG(canvasRef)}>Baixar imagem</button>
+
             {charts.length > 0 && (
                 <Canvas charts={charts} username={username} canvasRef={canvasRef} />
             )}
-
-            <button onClick={() => exportComponentAsPNG(canvasRef)}>Baixar imagem</button>
         </main>
     );
 }

@@ -7,7 +7,8 @@ const CanvasBoard = styled.div`
     display: flex;
     flex-direction: column;
 
-    background-color: #000;
+    background: black;
+
     width: 1080px;
     height: 1920px;
     color: #fff;
@@ -25,18 +26,26 @@ const Grid = styled.div`
 `;
 
 const Title = styled.h1`
-    font-size: 108px;
+    font-size: 72px;
     font-weight: 700;
     margin: 0;
-    padding: 0;
+    padding: 16px;
     text-align: center;
     padding: 10px;
+    font-family: "Futura PT", sans-serif;
+    color: #ff1b6d;
+`;
+
+const Name = styled(Title)`
+    color: #fff;
+    font-size: 64px;
 `;
 
 function Canvas({ charts, username, canvasRef }) {
     return (
         <CanvasBoard ref={canvasRef}>
-            <Title>Semaninha</Title>
+            <Title>Semaninha de </Title>
+            <Name>{username}</Name>
             <Grid>
                 {charts &&
                     charts.map((chart) => (
