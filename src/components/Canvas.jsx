@@ -12,6 +12,7 @@ const CanvasBoard = styled.div`
     width: 1080px;
     height: 1920px;
     color: #fff;
+    padding-top: 10px;
 `;
 
 const Grid = styled.div`
