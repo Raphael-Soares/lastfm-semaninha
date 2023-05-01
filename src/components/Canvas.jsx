@@ -12,7 +12,7 @@ const CanvasBoard = styled.div`
     width: 100dvw;
     height: 100dvh;
     color: #fff;
-    padding-top: 60px;
+    padding-top: 65px;
     padding-bottom: 10px;
 `;
 
