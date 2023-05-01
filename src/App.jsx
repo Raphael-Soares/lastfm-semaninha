@@ -37,7 +37,7 @@ function App() {
                 </button>
             </div>
 
-            <button onClick={() => exportComponentAsPNG(canvasRef)}>Baixar imagem</button>
+            <button onClick={() => exportComponentAsJPEG(canvasRef)}>Baixar imagem</button>
 
             {charts.length > 0 && (
                 <Canvas charts={charts} username={username} canvasRef={canvasRef} />
