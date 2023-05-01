@@ -9,8 +9,8 @@ const CanvasBoard = styled.div`
 
     background: black;
 
-    width: 100dvw;
-    height: 100dvh;
+    width: 100vw;
+    height: 100vh;
     color: #fff;
     padding-top: 65px;
     padding-bottom: 10px;
@@ -22,8 +22,8 @@ const Grid = styled.div`
     grid-template-rows: 1fr 1fr 1fr 1fr;
 
     & > img {
-        width: calc(100dvw / 3);
-        height: calc(100dvw / 3);
+        width: calc(100vw / 3);
+        height: calc(100vw / 3);
     }
 `;
 

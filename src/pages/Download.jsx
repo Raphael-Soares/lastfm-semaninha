@@ -10,6 +10,8 @@ import Canvas from "../components/Canvas";
 function Download() {
     const { username } = useParams();
 
+    const [loading, setLoading] = useState(true);
+
     const [charts, setCharts] = useState([]);
     const canvasRef = useRef(null);
 
@@ -26,6 +28,7 @@ function Download() {
         } catch (error) {
             console.error(error);
         }
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -33,16 +36,18 @@ function Download() {
     }, [username]);
 
     useEffect(() => {
-        if (charts.length >= 10) {
-            handleDownload();
+        if (loading === false) {
+            setTimeout(() => {
+                handleDownload();
+            }, 3000);
         }
-    }, [charts]);
+    }, [loading]);
 
     return (
         charts.length > 0 && (
             <div
                 style={{
-                    backgroundColor: "#000",
+                    backgroundColor: "#e3a1a1",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
