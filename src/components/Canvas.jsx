@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import styled from "styled-components";
 
 import Album from "./Album";
@@ -42,6 +42,16 @@ const Name = styled(Title)`
     font-size: 64px;
 `;
 
+const Markdown = styled.p`
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    font-family: "Futura PT", sans-serif;
+    color: #ff1b6d;
+`;
+
 function Canvas({ charts, username, canvasRef }) {
     return (
         <CanvasBoard ref={canvasRef}>
@@ -53,6 +63,7 @@ function Canvas({ charts, username, canvasRef }) {
                         <Album key={chart.name} album={chart} username={username} />
                     ))}
             </Grid>
+            <Markdown>semaninha.vercel.app</Markdown>
         </CanvasBoard>
     );
 }
