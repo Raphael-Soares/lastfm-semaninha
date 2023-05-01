@@ -9,10 +9,10 @@ const CanvasBoard = styled.div`
 
     background: black;
 
-    width: 1080px;
-    height: 1920px;
+    width: 100dvw;
+    height: 100dvh;
     color: #fff;
-    padding-top: 100px;
+    padding-top: 60px;
     padding-bottom: 10px;
 `;
 
@@ -22,13 +22,13 @@ const Grid = styled.div`
     grid-template-rows: 1fr 1fr 1fr 1fr;
 
     & > img {
-        width: calc(1080px / 3);
-        height: calc(1080px / 3);
+        width: calc(100dvw / 3);
+        height: calc(100dvw / 3);
     }
 `;
 
 const Title = styled.h1`
-    font-size: 72px;
+    font-size: 36px;
     font-weight: 700;
     margin: 0;
 
@@ -39,15 +39,14 @@ const Title = styled.h1`
 
 const Name = styled(Title)`
     color: #fff;
-    font-size: 64px;
-    padding-bottom: 50px;
+    font-size: 24px;
+    padding-bottom: 10px;
 `;
 
 const Markdown = styled.p`
     font-size: 24px;
     font-weight: 700;
     margin: 0;
-    padding: 10px;
     text-align: center;
     font-family: "Futura PT", sans-serif;
     color: #ff1b6d;

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
+import { MdSearch } from "react-icons/md";
+
 const Main = styled.main`
     display: flex;
     flex-direction: column;
@@ -22,6 +24,10 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         background-color: #ba0000;
@@ -67,6 +73,7 @@ function Home() {
                     style={{
                         display: "flex",
                         flexDirection: "row",
+                        marginTop: "50px",
                     }}
                 >
                     <Input
@@ -77,7 +84,7 @@ function Home() {
                     />
                     <Link to={`download/${username}`}>
                         <Button>
-                            <span>{">"}</span>
+                            <MdSearch />
                         </Button>
                     </Link>
                 </div>

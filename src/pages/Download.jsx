@@ -18,7 +18,7 @@ function Download() {
     async function getCharts() {
         try {
             const response = await axios.get(
-                `https://ws.audioscrobbler.com/2.0/?method=user.getweeklyalbumchart&user=${username}&api_key=ac09e0c68fd78ef987cf26caf78ceac9&page=1&format=json`
+                `http://ws.audioscrobbler.com/2.0/?method=user.getweeklyalbumchart&user=${username}&api_key=ac09e0c68fd78ef987cf26caf78ceac9&page=1&format=json`
             );
             setCharts(response.data.weeklyalbumchart.album.slice(0, 12));
         } catch (error) {
@@ -31,7 +31,7 @@ function Download() {
     }, [username]);
 
     useEffect(() => {
-        if (charts.length > 0) {
+        if (charts.length == 11) {
             handleDownload();
         }
     }, [charts]);
