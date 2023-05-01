@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { exportComponentAsPNG } from "react-component-export-image";
 
+import BASE_URL from "../utils/URLS";
+
 import axios from "axios";
 import Canvas from "../components/Canvas";
 
@@ -18,7 +20,7 @@ function Download() {
     async function getCharts() {
         try {
             const response = await axios.get(
-                `https://ws.audioscrobbler.com/2.0/?method=user.getweeklyalbumchart&user=${username}&api_key=ac09e0c68fd78ef987cf26caf78ceac9&page=1&format=json`
+                `${BASE_URL}?method=user.getweeklyalbumchart&user=${username}&api_key=ac09e0c68fd78ef987cf26caf78ceac9&page=1&format=json`
             );
             setCharts(response.data.weeklyalbumchart.album.slice(0, 12));
         } catch (error) {
@@ -31,36 +33,24 @@ function Download() {
     }, [username]);
 
     useEffect(() => {
-        if (charts.length == 11) {
+        if (charts.length >= 10) {
             handleDownload();
         }
     }, [charts]);
 
     return (
-        <div
-            style={{
-                backgroundColor: "#000",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-            }}
-        >
-            <p
+        charts.length > 0 && (
+            <div
                 style={{
-                    color: "#fff",
-                    fontSize: "24px",
-                    fontWeight: "700",
-                    margin: "0",
-                    padding: "10px",
-                    textAlign: "center",
-                    fontFamily: "Futura PT",
+                    backgroundColor: "#000",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                 }}
             >
-                Se o dowload não começou automaticamente,
-                <a
-                    onClick={handleDownload}
+                <p
                     style={{
-                        color: "#ff1b6d",
+                        color: "#fff",
                         fontSize: "24px",
                         fontWeight: "700",
                         margin: "0",
@@ -69,13 +59,27 @@ function Download() {
                         fontFamily: "Futura PT",
                     }}
                 >
-                    clique aqui
-                </a>
-            </p>
-            {charts.length > 0 && (
-                <Canvas charts={charts} username={username} canvasRef={canvasRef} />
-            )}
-        </div>
+                    Se o dowload não começou automaticamente,
+                    <a
+                        onClick={handleDownload}
+                        style={{
+                            color: "#ff1b6d",
+                            fontSize: "24px",
+                            fontWeight: "700",
+                            margin: "0",
+                            padding: "10px",
+                            textAlign: "center",
+                            fontFamily: "Futura PT",
+                        }}
+                    >
+                        clique aqui
+                    </a>
+                </p>
+                {charts.length > 0 && (
+                    <Canvas charts={charts} username={username} canvasRef={canvasRef} />
+                )}
+            </div>
+        )
     );
 }
 
