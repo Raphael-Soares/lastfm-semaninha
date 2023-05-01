@@ -1,34 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+import Album from "./components/Album";
+
+import styled from "styled-components";
+
+const Canvas = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    color: #fff;
+    height: 100vh;
+    width: 100vw;
+`;
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [charts, setCharts] = useState([]);
+    async function getCharts() {
+        const response = await axios.get(
+            "http://ws.audioscrobbler.com/2.0/?method=user.getweeklyalbumchart&user=mariagerotti&api_key=ac09e0c68fd78ef987cf26caf78ceac9&format=json"
+        );
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+        setCharts(response.data.weeklyalbumchart.album);
+        console.log(charts);
+    }
+
+    useEffect(() => {
+        getCharts();
+    }, []);
+    return (
+        <Canvas>{charts && charts.map((chart) => <Album key={chart.name} album={chart} />)}</Canvas>
+    );
 }
 
-export default App
+export default App;
