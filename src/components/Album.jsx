@@ -7,7 +7,7 @@ function Album({ album, username }) {
     useEffect(() => {
         async function getCover() {
             const response = await axios.get(
-                `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=ac09e0c68fd78ef987cf26caf78ceac9&artist=${album.artist["#text"]}&username=${username}&album=${album.name}&format=json`
+                `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=ac09e0c68fd78ef987cf26caf78ceac9&artist=${album.artist["#text"]}&username=${username}&album=${album.name}&format=json`
             );
 
             let cover = response.data.album.image[3]["#text"];
@@ -15,7 +15,7 @@ function Album({ album, username }) {
             // verifica se a resposta tem uma imagem
             if (!cover) {
                 const artistResponse = await axios.get(
-                    `http://ws.audioscrobbler.com/2.0/?method=album.search&album=${album.name}&limit=1&api_key=ac09e0c68fd78ef987cf26caf78ceac9&format=json`
+                    `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${album.name}&limit=1&api_key=ac09e0c68fd78ef987cf26caf78ceac9&format=json`
                 );
 
                 // obtém a imagem do artista
