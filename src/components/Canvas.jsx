@@ -28,6 +28,14 @@ const DownloadButton = styled.button`
     }
 `;
 
+const Canvas = styled.canvas`
+    border-radius: 5px;
+    margin-top: 20px;
+
+    width: 100%;
+    height: auto;
+`;
+
 function StoryCollage({ images, username }) {
     const canvasRef = useRef(null);
     const [canvasUrl, setCanvasUrl] = useState(null);
@@ -99,7 +107,8 @@ function StoryCollage({ images, username }) {
             {canvasUrl && (
                 <DownloadButton onClick={handleDownloadClick}>Baixar imagem</DownloadButton>
             )}
-            <canvas ref={canvasRef} width={1080} height={1920} />
+
+            <Canvas ref={canvasRef} width={1080} height={1920} />
         </Container>
     );
 }
