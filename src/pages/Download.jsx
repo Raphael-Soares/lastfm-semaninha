@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { exportComponentAsPNG } from "react-component-export-image";
 
 import BASE_URL from "../utils/URLS";
 
@@ -10,81 +9,55 @@ import Canvas from "../components/Canvas";
 function Download() {
     const { username } = useParams();
 
-    const [loading, setLoading] = useState(true);
-
     const [charts, setCharts] = useState([]);
-    const canvasRef = useRef(null);
+    const [albuns, setAlbuns] = useState([]);
 
-    function handleDownload() {
-        exportComponentAsPNG(canvasRef);
-    }
-
-    async function getCharts() {
+    async function getCover(album) {
         try {
             const response = await axios.get(
-                `${BASE_URL}?method=user.getweeklyalbumchart&user=${username}&api_key=ac09e0c68fd78ef987cf26caf78ceac9&page=1&format=json`
+                `${BASE_URL}?method=album.getinfo&api_key=ac09e0c68fd78ef987cf26caf78ceac9&artist=${album.artist["#text"]}&username=${username}&album=${album.name}&format=json`
             );
-            setCharts(response.data.weeklyalbumchart.album.slice(0, 12));
+
+            let cover = response.data.album.image[3]["#text"];
+
+            if (!cover) {
+                const artistResponse = await axios.get(
+                    `${BASE_URL}?method=album.search&album=${album.name}&limit=1&api_key=ac09e0c68fd78ef987cf26caf78ceac9&format=json`
+                );
+
+                cover = artistResponse.data.results.albummatches.album[0].image[3]["#text"];
+            }
+
+            return cover;
         } catch (error) {
             console.error(error);
+            return null;
         }
-        setLoading(false);
     }
 
     useEffect(() => {
-        getCharts();
+        async function fetchCharts() {
+            try {
+                const response = await axios.get(
+                    `${BASE_URL}?method=user.getweeklyalbumchart&user=${username}&api_key=ac09e0c68fd78ef987cf26caf78ceac9&page=1&format=json`
+                );
+                const charts = response.data.weeklyalbumchart.album.slice(0, 12);
+                setCharts(charts);
+
+                const covers = await Promise.all(charts.map(getCover));
+                setAlbuns(covers.filter((cover) => cover !== null));
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchCharts();
     }, [username]);
 
-    useEffect(() => {
-        if (loading === false) {
-            setTimeout(() => {
-                handleDownload();
-            }, 3000);
-        }
-    }, [loading]);
-
     return (
-        charts.length > 0 && (
-            <div
-                style={{
-                    backgroundColor: "#e3a1a1",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}
-            >
-                <p
-                    style={{
-                        color: "#fff",
-                        fontSize: "24px",
-                        fontWeight: "700",
-                        margin: "0",
-                        padding: "10px",
-                        textAlign: "center",
-                        fontFamily: "Futura PT",
-                    }}
-                >
-                    Se o dowload não começou automaticamente,
-                    <a
-                        onClick={handleDownload}
-                        style={{
-                            color: "#ff1b6d",
-                            fontSize: "24px",
-                            fontWeight: "700",
-                            margin: "0",
-                            padding: "10px",
-                            textAlign: "center",
-                            fontFamily: "Futura PT",
-                        }}
-                    >
-                        clique aqui
-                    </a>
-                </p>
-                {charts.length > 0 && (
-                    <Canvas charts={charts} username={username} canvasRef={canvasRef} />
-                )}
-            </div>
-        )
+        <div className="download">
+            {albuns.length > 0 && <Canvas images={albuns} username={username} />}
+        </div>
     );
 }
 
