@@ -22,8 +22,8 @@ const Grid = styled.div`
     grid-template-rows: 1fr 1fr 1fr 1fr;
 
     & > img {
-        width: 360px;
-        height: 360px;
+        width: calc(1080px / 3);
+        height: calc(1080px / 3);
     }
 `;
 
