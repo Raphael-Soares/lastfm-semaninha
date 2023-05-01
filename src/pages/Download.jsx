@@ -30,6 +30,12 @@ function Download() {
         getCharts();
     }, [username]);
 
+    useEffect(() => {
+        if (charts.length > 0) {
+            handleDownload();
+        }
+    }, [charts]);
+
     return (
         <div
             style={{
