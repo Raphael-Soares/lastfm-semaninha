@@ -12,7 +12,8 @@ const CanvasBoard = styled.div`
     width: 1080px;
     height: 1920px;
     color: #fff;
-    padding-top: 10px;
+    padding-top: 100px;
+    padding-bottom: 10px;
 `;
 
 const Grid = styled.div`
@@ -30,9 +31,8 @@ const Title = styled.h1`
     font-size: 72px;
     font-weight: 700;
     margin: 0;
-    padding: 16px;
+
     text-align: center;
-    padding: 10px;
     font-family: "Futura PT", sans-serif;
     color: #ff1b6d;
 `;
@@ -40,6 +40,7 @@ const Title = styled.h1`
 const Name = styled(Title)`
     color: #fff;
     font-size: 64px;
+    padding-bottom: 50px;
 `;
 
 const Markdown = styled.p`
