@@ -1,30 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
+import Footer from "../components/Footer";
+
 import styled from "styled-components";
 
-import Imagem from "../assets/semaninha.png";
-
-import { MdSearch } from "react-icons/md";
-
 const Main = styled.main`
+    position: relative;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     padding: 20px;
 
+    max-width: 770px;
+    margin: 0 auto;
+
     width: 100%;
+    height: 100vh;
     gap: 50px;
-
-    @media (max-width: 768px) {
-        flex-direction: column-reverse;
-        align-items: center;
-    }
-`;
-
-const ImagemExemplo = styled.img`
-    height: 80vh;
-    border-radius: 5px;
 `;
 
 const Button = styled.button`
@@ -36,6 +29,13 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 150px;
 
     display: flex;
     align-items: center;
@@ -55,6 +55,9 @@ const Input = styled.input`
     border-bottom: 2px solid #d51007;
     background-color: transparent;
 
+    width: 100%;
+    min-width: 150px;
+
     &:focus {
         outline: none;
         border-bottom: 2px solid #ba0000;
@@ -62,7 +65,7 @@ const Input = styled.input`
 `;
 
 const Title = styled.h1`
-    font-size: 36px;
+    font-size: 2rem;
     font-family: "Lato", sans-serif;
     color: #000;
 `;
@@ -77,37 +80,37 @@ function Home() {
     const [username, setUsername] = useState("");
 
     return (
-        <Main>
-            <picture>
-                <ImagemExemplo src={Imagem} alt="Exemplo de Semaninha" />
-            </picture>
-
-            <div>
+        <>
+            <Main>
                 <Title>Gerador de Semaninha</Title>
-                <Subtitle>Gera um story com os álbuns mais ouvidos da sua semana</Subtitle>
+                <Subtitle>
+                    Porque não postar um story com os álbuns mais ouvidos da sua semana?
+                </Subtitle>
                 <div
                     style={{
                         display: "flex",
-                        flexDirection: "row",
-                        marginTop: "50px",
-                        paddingBottom: "10px",
+                        flexDirection: "column",
+                        gap: "10px",
                     }}
                 >
                     <Input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Username do Last.fm"
+                        placeholder="Nome de usuário do Last.fm"
                     />
-                    <Link to={`download/${username}`}>
-                        <Button>
-                            <MdSearch />
-                        </Button>
+                    <Link
+                        to={`download/${username}`}
+                        style={{
+                            textDecoration: "none",
+                        }}
+                    >
+                        <Button>Gerar Semaninha</Button>
                     </Link>
                 </div>
-                <hr />
-            </div>
-        </Main>
+                <Footer />
+            </Main>
+        </>
     );
 }
 
